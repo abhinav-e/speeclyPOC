@@ -7,7 +7,9 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <h1>Speechly Home Automation Demo</h1>
+    <!-- <img src="./images/McK_Logo.png"/> -->
+
+    <!-- <h1>Speechly Home Automation Demo</h1>
     <p>Check out our spoken language understanding API for developers at <a href="https://speechly.com" rel="noreferrer noopener" target="_blank">https://speechly.com</a></p>
     <p>Start by clicking the "Connect" button and then try saying the following phrases while holding down the "Record" button:</p>
     <ul>
@@ -15,7 +17,7 @@
       <li><em>"Switch off the television in the bedroom"</em></li>
       <li><em>"Put on the lights in the living room"</em></li>
       <li><em>"Set off the radio in the living room"</em></li>
-    </ul>
+    </ul> -->
 
     <div>
       <h3 id="status">Disconnected</h3>
@@ -26,32 +28,40 @@
 
     <div id="results" style="width:100%">
       <div id="transcript" style="width: 33%; float:left" >
-        <h3>Transcript</h3>
+        <h3 style="color: #4891DC;">Transcript</h3>
         <p id="transcript-words"></p>
 
-        <h3>Words</h3>
-        <ul id="transcript-list"></ul>
+        <!-- <h3>Words</h3>
+        <ul id="transcript-list"></ul> -->
+
+        <h3 style="color: #4891DC;">Name</h3>
+        <ul style="color: #5A8E22;" id="firstName"></ul>
+
+        <h3 style="color: #4891DC;">Notes</h3>
+        <ul style="color: #5A8E22;" id="zipCode"></ul>
+
+        <!--  -->
       </div>
-      <div id="intent" style="width: 33%; float:left">
+      <!-- <div id="intent" style="width: 33%; float:left">
         <h3>Intent</h3>
         <p id="intent-value"></p>
-      </div>
-      <div id="entities" style="width:33%; float:left">
+      </div> -->
+      <!-- <div id="entities" style="width:33%; float:left">
         <h3>Entities</h3>
         <ul id="entities-list"></ol>
-      </div>
+      </div> -->
     </div>
     <div id="log" style="clear: both">
-      <h3>Log</h3>
+      <h3 style="color: #4891DC;">Log</h3>
       <table>
         <thead>
           <tr>
-            <th>Utterance ID</th>
-            <th>Segment ID</th>
-            <th>Is final</th>
-            <th>Words</th>
-            <th>Intents</th>
-            <th>Entities</th>
+            <th style="color: #4891DC;">Utterance ID</th>
+            <th style="color: #4891DC;">Segment ID</th>
+            <th style="color: #4891DC;">Is final</th>
+            <th style="color: #4891DC;">Words</th>
+            <th style="color: #4891DC;">Intents</th>
+            <th style="color: #4891DC;">Entities</th>
           </tr>
         </thead>
         <tbody id="log-list"></tbody>

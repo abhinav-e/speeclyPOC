@@ -24,8 +24,8 @@ window.onload = () => {
   // High-level API, that you can use to react to segment changes.
   client.onSegmentChange((segment: Segment) => {
     updateWords(segment.words);
-    updateEntities(segment.entities);
-    updateIntent(segment.intent);
+    //updateEntities(segment.entities);
+    //updateIntent(segment.intent);
 
     if (segment.isFinal) {
       updateReady(segment.contextId, true);
@@ -84,18 +84,85 @@ function updateWords(words: Word[]) {
     "transcript-words"
   ) as HTMLElement;
 
+  const fnameDiv = document.getElementById("firstName") as HTMLElement;
+
+  const zipDiv = document.getElementById("zipCode") as HTMLElement;
+
+  
+  // console.log(words);
   transcriptDiv.innerHTML = words
     .map((word) => (word.isFinal ? `<b>${word.value}</b>` : word.value))
     .join(" ");
 
-  const wordsDiv = document.getElementById("transcript-list") as HTMLElement;
-  wordsDiv.innerHTML = words
-    .map((word) =>
-      word.isFinal
-        ? `<li><b>${word.value} [${word.index}]</b></li>`
-        : `<li>${word.value} [${word.index}]</li>`
-    )
-    .join("");
+  if(words.filter((word) => (word.isFinal && word.value === 'NAME')).length > 0){
+                  
+                  let isIndexJSON;
+                  if(words.filter((word) => (word.isFinal && word.value === 'IS')).length > 0){
+                       isIndexJSON = words.filter((word) => (word.isFinal && word.value === 'IS'))
+
+                  }else if(words.filter((word) => (word.isFinal && word.value === 'NAME')).length > 0){
+                     isIndexJSON = words.filter((word) => (word.isFinal && word.value === 'NAME'))
+                  }
+                   console.log(isIndexJSON);
+                  
+                  let isIndexVal = 0;
+                  if(isIndexJSON && isIndexJSON.length > 0){
+                    isIndexVal = isIndexJSON[0].index;
+                  }
+                
+                  // console.log(isIndexVal);
+                  
+                  if(words && words.length === isIndexVal){
+                    let finalName = words.filter((word) => (word.isFinal && word.index === isIndexVal + 1))[0];
+
+                    if(typeof(finalName) == undefined || finalName == undefined){
+                        isIndexVal = isIndexVal + 1;
+                        console.log(typeof(finalName));
+                    }
+
+                    console.log(typeof(finalName));
+                    while (typeof(finalName) == undefined || finalName == undefined){
+                      isIndexVal = isIndexVal + 1;
+                      finalName = words.filter((word) => (word.isFinal && word.index === isIndexVal ))[0];
+                    }
+                    console.log("finalName");
+                    console.log(finalName);
+                    
+                    if(finalName){
+                        fnameDiv.innerHTML = finalName.value && `<b>${finalName.value}</b>`;
+                    }
+                  }
+  }else if(words.filter((word) => (word.isFinal && word.value === 'NOTES')).length > 0){
+          
+         //console.log(words);
+          let isIndexJSON = words.filter((word) => (word.isFinal && word.value === 'NOTES'))
+          console.log(isIndexJSON);
+          
+          let isIndexVal = 0;
+          if(isIndexJSON && isIndexJSON.length > 0){
+            isIndexVal = isIndexJSON[0].index;
+          }
+        
+          //console.log(isIndexVal);
+          
+          if(words && words.length > 0){
+            let zipVal = words.filter((word) => (word.isFinal && word.index === isIndexVal + 1))[0];
+                    
+              //zipDiv.innerHTML = zipVal.value && `<b>${zipVal.value}</b>`;
+            zipDiv.innerHTML = words.map((word) => (word.isFinal && word.index > isIndexVal ? `<b>${word.value}</b>`: "")).join(" ");
+          }
+  }
+
+
+
+  // const wordsDiv = document.getElementById("transcript-list") as HTMLElement;
+  // wordsDiv.innerHTML = words
+  //   .map((word) =>
+  //     word.isFinal
+  //       ? `<li><b>${word.value} [${word.index}]</b></li>`
+  //       : `<li>${word.value} [${word.index}]</li>`
+  //   )
+  //   .join("");
 }
 
 function updateEntities(entities: Entity[]) {
